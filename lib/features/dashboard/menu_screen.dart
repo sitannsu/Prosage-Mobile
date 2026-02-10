@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
+import 'books_screen.dart';
+import 'teach_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -19,15 +21,15 @@ class MenuScreen extends StatelessWidget {
               crossAxisSpacing: 20,
               childAspectRatio: 0.85,
               children: [
-                _buildMenuItem('Books', Icons.menu_book, const Color(0xFFFFF0F0), Colors.redAccent),
-                _buildMenuItem('Teach', Icons.calculate, const Color(0xFFFFF7EA), Colors.orange),
-                _buildMenuItem('Assignment', Icons.assignment_outlined, const Color(0xFFE8F4FD), Colors.blueAccent),
-                _buildMenuItem('Attendance', Icons.calendar_today_outlined, const Color(0xFFF0F9F1), Colors.green),
-                _buildMenuItem('Time Table', Icons.access_time_outlined, const Color(0xFFFFF0F0), Colors.redAccent),
-                _buildMenuItem('Reports', Icons.bar_chart_outlined, const Color(0xFFFDEEF6), Colors.pinkAccent),
-                _buildMenuItem('Assements', Icons.description_outlined, const Color(0xFFFFF8E1), Colors.amber),
-                _buildMenuItem('Results', Icons.assignment_turned_in_outlined, const Color(0xFFF3E5F5), Colors.purpleAccent),
-                _buildMenuItem('Homework', Icons.home_work_outlined, const Color(0xFFE8F5E9), Colors.lightGreen),
+                _buildMenuItem(context, 'Books', Icons.menu_book, const Color(0xFFFFF0F0), Colors.redAccent, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BooksScreen()))),
+                _buildMenuItem(context, 'Teach', Icons.calculate, const Color(0xFFFFF7EA), Colors.orange, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TeachScreen()))),
+                _buildMenuItem(context, 'Assignment', Icons.assignment_outlined, const Color(0xFFE8F4FD), Colors.blueAccent, () {}),
+                _buildMenuItem(context, 'Attendance', Icons.calendar_today_outlined, const Color(0xFFF0F9F1), Colors.green, () {}),
+                _buildMenuItem(context, 'Time Table', Icons.access_time_outlined, const Color(0xFFFFF0F0), Colors.redAccent, () {}),
+                _buildMenuItem(context, 'Reports', Icons.bar_chart_outlined, const Color(0xFFFDEEF6), Colors.pinkAccent, () {}),
+                _buildMenuItem(context, 'Assements', Icons.description_outlined, const Color(0xFFFFF8E1), Colors.amber, () {}),
+                _buildMenuItem(context, 'Results', Icons.assignment_turned_in_outlined, const Color(0xFFF3E5F5), Colors.purpleAccent, () {}),
+                _buildMenuItem(context, 'Homework', Icons.home_work_outlined, const Color(0xFFE8F5E9), Colors.lightGreen, () {}),
               ],
             ),
           ),
@@ -82,31 +84,34 @@ class MenuScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(String title, IconData icon, Color bgColor, Color iconColor) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-               BoxShadow(color: iconColor.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 4))
-            ]
+  Widget _buildMenuItem(BuildContext context, String title, IconData icon, Color bgColor, Color iconColor, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                 BoxShadow(color: iconColor.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 4))
+              ]
+            ),
+            child: Icon(icon, color: iconColor, size: 30),
           ),
-          child: Icon(icon, color: iconColor, size: 30),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

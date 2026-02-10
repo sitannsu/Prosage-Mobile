@@ -1,117 +1,118 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/responsive/responsive.dart';
-import 'add_assignment_screen.dart';
+import 'assignment_subjects_screen.dart';
+import 'assignment_list_view.dart'; // We'll move old assignments list here
 
 class AssignmentsScreen extends StatelessWidget {
   const AssignmentsScreen({super.key});
 
-  final List<Map<String, dynamic>> assignments = const [
-    {
-      'title': 'Mathematics Homework 1',
-      'dueDate': '2023-11-20',
-      'status': 'Pending',
-    },
-    {
-      'title': 'Science Project',
-      'dueDate': '2023-11-25',
-      'status': 'Submitted',
-    },
-    {
-      'title': 'English Essay',
-      'dueDate': '2023-11-28',
-      'status': 'Graded',
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Assignments')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddAssignmentScreen()),
-          );
-        },
-        backgroundColor: AppTheme.primaryColor,
-        child: const Icon(Icons.add),
-      ),
-      body: Responsive.isMobile(context)
-          ? ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: assignments.length,
-              itemBuilder: (context, index) => _buildCard(assignments[index]),
-            )
-          : GridView.builder(
-              padding: const EdgeInsets.all(16),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: Responsive.isTablet(context) ? 2 : 3,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 2.0,
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          _buildHeader(context),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  _buildOptionCard(
+                    context,
+                    '1. Create Assignment?',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultrices, nisl id dictum.',
+                    'https://illustrations.popsy.co/blue/customer-support.svg',
+                    () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AssignmentSubjectsScreen())),
+                  ),
+                  const SizedBox(height: 32),
+                  _buildOptionCard(
+                    context,
+                    '2. View Assignment',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultrices, nisl id dictum.',
+                    'https://illustrations.popsy.co/blue/work-from-home.svg',
+                    () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AssignmentListView())),
+                  ),
+                ],
               ),
-              itemCount: assignments.length,
-              itemBuilder: (context, index) => _buildCard(assignments[index]),
             ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildCard(Map<String, dynamic> assignment) {
-    Color statusColor = Colors.orange;
-    if (assignment['status'] == 'Submitted') statusColor = Colors.blue;
-    if (assignment['status'] == 'Graded') statusColor = Colors.green;
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        assignment['title'],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      height: 180,
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        gradient: AppTheme.primaryGradient,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
+        ),
+      ),
+      child: Stack(
+        children: [
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: AppTheme.primaryColor),
+                      onPressed: () => Navigator.pop(context),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: statusColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        assignment['status'],
-                        style: TextStyle(color: statusColor, fontSize: 12, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.date_range, size: 16, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    Text('Due: ${assignment['dueDate']}', style: const TextStyle(color: Colors.grey)),
-                  ],
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: OutlinedButton(
-                onPressed: () {},
-                child: const Text('View'),
+                  ),
+                  const Text(
+                    'Assignment',
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  const SizedBox(width: 48), // Spacer for balance
+                ],
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOptionCard(BuildContext context, String title, String subtitle, String imageUrl, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(28),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7F8FA),
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+             BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10, offset: const Offset(0, 4))
+          ]
+        ),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13, color: Colors.grey[600], height: 1.4),
+            ),
+            const SizedBox(height: 24),
+            Image.network(imageUrl, height: 140),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: const Icon(Icons.search, color: AppTheme.primaryColor, size: 28),
             ),
           ],
         ),

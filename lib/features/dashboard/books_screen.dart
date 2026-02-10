@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
+import 'teach_screen.dart';
 
 class BooksScreen extends StatelessWidget {
   const BooksScreen({super.key});
@@ -15,13 +16,13 @@ class BooksScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                _buildBookCard('Maths', '01/30', const Color(0xFFF46565), Icons.pie_chart),
+                _buildBookCard(context, 'Maths', '01/30', const Color(0xFFF46565), Icons.pie_chart),
                 const SizedBox(height: 16),
-                _buildBookCard('English', '00/30', const Color(0xFFFFC107), Icons.auto_awesome_mosaic),
+                _buildBookCard(context, 'English', '00/30', const Color(0xFFFFC107), Icons.auto_awesome_mosaic),
                 const SizedBox(height: 16),
-                _buildBookCard('EVS', '00/30', const Color(0xFF4CAF50), Icons.eco),
+                _buildBookCard(context, 'EVS', '00/30', const Color(0xFF4CAF50), Icons.eco),
                 const SizedBox(height: 16),
-                _buildBookCard('Hindi', '00/30', const Color(0xFF9C27B0), Icons.translate),
+                _buildBookCard(context, 'Hindi', '00/30', const Color(0xFF9C27B0), Icons.translate),
               ],
             ),
           ),
@@ -76,72 +77,80 @@ class BooksScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBookCard(String title, String progress, Color color, IconData icon) {
-    return Container(
-      height: 160,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            right: -20,
-            bottom: -20,
-            child: Icon(
-              icon,
-              size: 150,
-              color: Colors.white.withOpacity(0.2),
+  Widget _buildBookCard(BuildContext context, String title, String progress, Color color, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TeachScreen()),
+        );
+      },
+      child: Container(
+        height: 160,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              right: -20,
+              bottom: -20,
+              child: Icon(
+                icon,
+                size: 150,
+                color: Colors.white.withOpacity(0.2),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Prosage',
-                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(15),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Prosage',
+                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
                       ),
-                      child: Text(
-                        progress,
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Text(
+                          progress,
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Text(
-                  title,
-                  style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                      child: Icon(Icons.add, color: color, size: 16),
-                    ),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'View Book',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  Text(
+                    title,
+                    style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                        child: Icon(Icons.add, color: color, size: 16),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'View Book',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

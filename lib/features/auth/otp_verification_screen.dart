@@ -447,4 +447,4 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 }
 
 const Color kBlackDE = Color(0xFF333333);
-extension on Colors { static const Color blackDE = Color(0xFF333333); }
+

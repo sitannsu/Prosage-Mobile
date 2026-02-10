@@ -119,13 +119,20 @@ class TeacherHomeDashboard extends StatelessWidget {
                         children: const [
                           Text('Hi, Priya', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
                           SizedBox(height: 4),
-                          Text('How are you doing today?', style: TextStyle(fontSize: 14, color: Colors.whiteA7, fontWeight: FontWeight.w400)),
+                          Text('How are you doing today?', style: TextStyle(fontSize: 14, color: Color(0xFFA7A7A7), fontWeight: FontWeight.w400)),
                         ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                        child: const Icon(Icons.add, color: AppTheme.primaryColor, size: 28),
+                      GestureDetector(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Feature to add new content coming soon!')),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                          child: const Icon(Icons.add, color: AppTheme.primaryColor, size: 28),
+                        ),
                       ),
                     ],
                   ),
@@ -335,6 +342,4 @@ class TeacherHomeDashboard extends StatelessWidget {
   }
 }
 
-extension on Colors {
-  static const Color whiteA7 = Color(0xFFA7A7A7);
-}
+

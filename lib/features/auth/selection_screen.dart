@@ -108,7 +108,7 @@ class SelectionScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.whiteEF,
+                      color: Color(0xFFEFEFEF),
                       height: 1.4,
                     ),
                   ),
@@ -189,6 +189,4 @@ class SelectionScreen extends StatelessWidget {
   }
 }
 
-extension on Colors {
-  static const Color whiteEF = Color(0xFFEFEFEF);
-}
+
