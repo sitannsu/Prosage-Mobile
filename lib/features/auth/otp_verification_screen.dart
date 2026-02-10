@@ -3,6 +3,7 @@ import '../../core/responsive/responsive.dart';
 import '../../core/theme/app_theme.dart';
 import '../dashboard/app_scaffold.dart';
 import 'login_screen.dart';
+import 'selection_screen.dart';
 
 enum OTPStep { selection, verification }
 
@@ -51,7 +52,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
       // Finish Signup
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const AppScaffold()),
+        MaterialPageRoute(builder: (context) => const SelectionScreen()),
         (route) => false,
       );
     }

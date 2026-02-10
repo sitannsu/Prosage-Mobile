@@ -4,6 +4,7 @@ import '../../core/theme/app_theme.dart';
 import '../dashboard/app_scaffold.dart';
 import 'register_screen.dart';
 import 'otp_verification_screen.dart';
+import 'selection_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -301,7 +302,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const AppScaffold()),
+                    MaterialPageRoute(builder: (context) => const SelectionScreen()),
                   );
                 }
               },

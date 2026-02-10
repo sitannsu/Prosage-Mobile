@@ -58,10 +58,10 @@ class _AppScaffoldState extends State<AppScaffold> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavBarItem(0, Icons.home, 'Home'),
-            _buildNavBarItem(1, Icons.person_outline, 'Profile'),
-            _buildNavBarItem(2, Icons.settings_outlined, 'Settings'),
-            _buildNavBarItem(3, Icons.notifications_none, 'Notifications'),
+            _buildNavBarItem(0, Icons.home_rounded, 'Home'),
+            _buildNavBarItem(1, Icons.person_outline_rounded, 'Profile'),
+            _buildNavBarItem(2, Icons.hexagon_outlined, 'Settings'),
+            _buildNavBarItem(3, Icons.notifications_none_rounded, 'Notifications'),
           ],
         ),
       ),
@@ -76,19 +76,19 @@ class _AppScaffoldState extends State<AppScaffold> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: isSelected
             ? BoxDecoration(
-                color: Colors.white.withOpacity(0.25),
-                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25),
               )
             : null,
         child: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 28),
+            Icon(icon, color: isSelected ? AppTheme.primaryColor : Colors.white, size: 28),
             if (isSelected) ...[
               const SizedBox(width: 8),
               Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppTheme.primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
